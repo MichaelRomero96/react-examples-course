@@ -1,11 +1,17 @@
-import LocalStorage from "./components/LocalStorage";
-import ReactRouter from "./components/ReactRouter";
+import MyGlobalComponent from "./components/MyGlobalComponent";
+import LoginGoogleProvider from "./context/provider/LoginGoogleProvider";
+import MyComponentProvider from "./context/provider/MyComponentProvider";
+
 
 function App() {
+
   return (
-    <>
-      <LocalStorage />
-    </>
+    <LoginGoogleProvider>
+      <MyComponentProvider>
+        <MyGlobalComponent />
+        {/* <LoginGoogle /> */}
+      </MyComponentProvider>
+    </LoginGoogleProvider>
 
   );
 }

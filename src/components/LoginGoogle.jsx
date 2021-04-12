@@ -8,9 +8,12 @@ import iconGoogle from '../assets/icons/google.svg';
 //styles
 import "../styles/google.css";
 import { useHistory } from 'react-router';
+import { useStore } from '../context/provider/LoginGoogleProvider';
 
 
 export default function LoginGoogle() {
+
+    const { user } = useStore();
 
 
     const [googleData, setGoogleData] = useState({
@@ -32,11 +35,11 @@ export default function LoginGoogle() {
     }
     const { accessToken } = googleData;
 
-    useEffect(() => {
-        if (accessTokenData !== null) {
-            history.push("/")
-        }
-    }, [accessTokenData])
+    // useEffect(() => {
+    //     if (accessTokenData !== null) {
+    //         history.push("/")
+    //     }
+    // }, [accessTokenData])
 
 
 
@@ -49,7 +52,7 @@ export default function LoginGoogle() {
 
     return (
         <>
-            <h1>Desde Google</h1>
+            <h1>{user.name}</h1>
             {accessTokenData ?
                 <div>
                     <h1>Bienvenido {googleData.givenName}</h1>
