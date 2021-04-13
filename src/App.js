@@ -1,18 +1,12 @@
-import MyGlobalComponent from "./components/MyGlobalComponent";
-import LoginGoogleProvider from "./context/provider/LoginGoogleProvider";
-import MyComponentProvider from "./context/provider/MyComponentProvider";
+import LoginExample from './components/LoginExample';
 
 
 function App() {
 
   return (
-    <LoginGoogleProvider>
-      <MyComponentProvider>
-        <MyGlobalComponent />
-        {/* <LoginGoogle /> */}
-      </MyComponentProvider>
-    </LoginGoogleProvider>
-
+    <>
+      <LoginExample />
+    </>
   );
 }
 

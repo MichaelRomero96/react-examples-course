@@ -8,58 +8,46 @@ import iconGoogle from '../assets/icons/google.svg';
 //styles
 import "../styles/google.css";
 import { useHistory } from 'react-router';
-import { useStore } from '../context/provider/LoginGoogleProvider';
+import { useDispatch, useStore } from '../context/provider/LoginGoogleProvider';
+import { types } from '../context/reducers/LoginGoogleReducer';
 
 
 export default function LoginGoogle() {
-
+    const dispatch = useDispatch();
     const { user } = useStore();
+    const { name, googleId } = user;
 
+    // const { name } = user;
 
-    const [googleData, setGoogleData] = useState({
-        accessToken: "",
-        givenName: ""
-    });
+    // const [googleData, setGoogleData] = useState({
+    //     accessToken: "",
+    //     givenName: ""
+    // });
     const history = useHistory();
-    const [accessTokenData, setaccessTokenData] = useState(
-        window.localStorage.getItem("access-token")
-    )
 
     const responseGoogle = async (response) => {
         console.log(response);
         const responseData = await response
-        setGoogleData(responseData);
+        dispatch({
+            type: types.googleLogin,
+            payload: responseData.profileObj
+        })
     }
     const responseFacebook = (response) => {
         console.log(response);
     }
-    const { accessToken } = googleData;
-
-    // useEffect(() => {
-    //     if (accessTokenData !== null) {
-    //         history.push("/")
-    //     }
-    // }, [accessTokenData])
-
-
-
-    useEffect(() => {
-        if (accessToken.length !== 0) {
-            setaccessTokenData(accessToken)
-            window.localStorage.setItem("access-token", accessToken)
-        }
-    }, [accessToken])
 
     return (
         <>
-            <h1>{user.name}</h1>
-            {accessTokenData ?
+            {name ?
                 <div>
-                    <h1>Bienvenido {googleData.givenName}</h1>
-                    <img src={googleData.imageUrl} />
+                    <h1>Bienvenido {user.name}</h1>
+                    <button onClick={() => dispatch({ type: types.googleLogout, })}>
+                        Cerrar Sesión
+                        </button>
                 </div>
                 :
-                <>
+                <div>
                     <GoogleLogin
                         clientId="463286201082-bl7f1upfa8kscdvbvl9tvs1rtdmhop26.apps.googleusercontent.com"
                         buttonText="Login"
@@ -98,9 +86,9 @@ export default function LoginGoogle() {
                                 Entrar con Facebook
                             </Button>
                         )} />
-                </>
+                </div>
             }
-
         </>
+
     )
 }
