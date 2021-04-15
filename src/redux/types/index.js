@@ -1,0 +1,4 @@
+export const AUTH_LOGOUT = 'AUTH_LOGOUT'
+export const AUTH_LOGIN = 'AUTH_LOGIN'
+export const PRODUCT_DELETE_ALL = 'PRODUCT_DELETE_ALL'
+export const PRODUCT_CHANGE = 'PRODUCT_CHANGE'

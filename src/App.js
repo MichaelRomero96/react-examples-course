@@ -1,12 +1,15 @@
-import LoginExample from './components/LoginExample';
+import { Provider } from "react-redux";
+import ReduxComponent from "./components/ReduxComponent";
+import store from './redux/store'
 
 
 function App() {
-
   return (
-    <>
-      <LoginExample />
-    </>
+    <Provider
+      store={store}>
+      <ReduxComponent />
+    </Provider>
+
   );
 }
 
