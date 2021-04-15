@@ -2,6 +2,7 @@ import { useDispatch, useStore } from "../context/provider/MyComponentProvider";
 import { types } from "../context/reducers/MyComponentReducer";
 
 export default function MyGlobalComponent() {
+    //ejemplo de ContextAPI
     const { user, products } = useStore();
     const dispatch = useDispatch();
     return (

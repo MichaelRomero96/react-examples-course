@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { Button } from '@material-ui/core/';
@@ -10,6 +9,8 @@ import "../styles/google.css";
 import { useHistory } from 'react-router';
 import { useDispatch, useStore } from '../context/provider/LoginGoogleProvider';
 import { types } from '../context/reducers/LoginGoogleReducer';
+import { secondUser, products } from '../helpers/users';
+import { useEffect } from 'react';
 
 
 export default function LoginGoogle() {
@@ -17,12 +18,10 @@ export default function LoginGoogle() {
     const { user } = useStore();
     const { name, googleId } = user;
 
-    // const { name } = user;
-
-    // const [googleData, setGoogleData] = useState({
-    //     accessToken: "",
-    //     givenName: ""
-    // });
+    useEffect(() => {
+        console.log(secondUser)
+        console.log(products)
+    }, [])
     const history = useHistory();
 
     const responseGoogle = async (response) => {
