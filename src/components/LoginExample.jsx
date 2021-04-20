@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import user from '../helpers/users'
 import { obtenerDatosAxios } from '../services/users';
 
-export default function LoginExample({ setCheckLogin }) {
+export default function LoginExample() {
     let history = useHistory();
     const [users, setUsers] = useState([]);
     const localUser = user;

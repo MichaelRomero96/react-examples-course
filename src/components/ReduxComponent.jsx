@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     logout_action,
 } from '../reduxDucks/mainDucks';
+import { dataBase } from '../services/firebase/firebase';
 
 export default function ReduxComponent() {
     const { products } = useSelector(state => state.main);
@@ -10,6 +11,10 @@ export default function ReduxComponent() {
     const { user } = useSelector(state => state.login);
     const dispatch = useDispatch();
     const userData = { id: 1, name: 'Luis' };
+
+    const userRegister = async () => {
+        await dataBase.collection('users').doc().set()
+    }
     return (
         <>
             <h1>Desde Componente</h1>

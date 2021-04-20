@@ -1,5 +1,5 @@
 import { Provider } from "react-redux";
-import ReduxComponent from "./components/ReduxComponent";
+import FirebaseDemo from "./components/firebaseExample/FirebaseDemo";
 import generateStore from "./reduxDucks/store";
 
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <Provider
       store={store}>
-      <ReduxComponent />
+      <FirebaseDemo />
     </Provider>
 
   );
