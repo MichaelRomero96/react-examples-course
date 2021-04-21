@@ -1,15 +1,20 @@
 import { Provider } from "react-redux";
-import FirebaseDemo from "./components/firebaseExample/FirebaseDemo";
-import generateStore from "./reduxDucks/store";
+import FirebaseDemoRedux from "./components/firebaseExample/FirebaseDemoRedux";
+//lamado del store desde redux
+import store from "./redux/store";
+//llamado del store desde funcion de redux ducks
+// import generateStore from "./reduxDucks/store";
+
 
 
 
 function App() {
-  const store = generateStore();
   return (
     <Provider
       store={store}>
-      <FirebaseDemo />
+      {/* <FirebaseDemo /> */} {/* demo de productos de firebase sin aplicar redux*/}
+      <FirebaseDemoRedux /> {/* demo de productos de firebase con redux */}
+
     </Provider>
 
   );

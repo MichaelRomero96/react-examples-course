@@ -1,11 +1,18 @@
 import { Card, CardHeader, CardMedia, Grid, IconButton, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react'
 import { dataBase } from '../../services/firebase/firebase'
-
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+import { add_products_action, delete_products_action, get_products_action } from '../../redux/actions/productsActions';
 //icons
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function FirebaseDemo() {
+
+
+export default function FirebaseDemoRedux() {
+    const dispatch = useDispatch();
+    const { listOfProducts, productForm } = useSelector(state => state.products);
+    console.log(listOfProducts);
     const [products, setProducts] = useState({
         productName: '',
         description: '',
@@ -23,76 +30,29 @@ export default function FirebaseDemo() {
         })
     }
 
-    // const getUsers = async () => {
-    //     const querySnapshot = await dataBase.collection("users").get();
-    //     let docs = [];
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(doc.data());
-    //         docs.push({ ...doc.data(), id: doc.id });
-    //     });
-    //     console.log(docs);
-    //     setUsers(docs);
-
-    // }
-
-    const getProducts = () => {
-        dataBase.collection("products").onSnapshot((querySnapshot) => {
-            const docs = [];
-            querySnapshot.forEach((doc) => {
-                console.log(doc.data());
-                docs.push({ ...doc.data(), id: doc.id });
-            });
-            console.log(docs);
-            setproductList(docs);
-        });
-    }
-
     useEffect(() => {
-        console.log(users);
-    }, [users])
-
-    useEffect(() => {
-        console.log("Get data from data base")
-        getProducts();
-        setProductRegistry(false);
+        dispatch(get_products_action())
     }, []);
 
     useEffect(() => {
         if (productDelete !== null) {
             handleDelete(productDelete)
         }
-    }, [productDelete])
-
-    const addUserDB = async () => {
-        await dataBase.collection('users').doc().set(products);
-        console.log('Enviando datos a firebase')
-    }
-
-    const addProductsDB = async () => {
-        await dataBase.collection('products').doc().set(products);
-        console.log('Enviando datos a firebase');
-        setProducts({
-            productName: '',
-            description: '',
-            imgUrl: ''
-        })
-    }
-
+    }, [productDelete]);
     //registrar la data
     const handleSubmit = e => {
         e.preventDefault();
         console.log("Registring a product");
-        addProductsDB();
         setProductRegistry(true);
+        dispatch(add_products_action(products));
+        setProducts(productForm);
     }
 
     //eliminar Productos
     const handleDelete = async (id) => {
         console.log("delete a product")
         if (window.confirm("Are you sure you want to delete this product")) {
-            await dataBase.collection('products').doc(id).delete();
-            console.log("product deleted")
-            setProductDelete(null);
+            dispatch(delete_products_action(id))
         }
     }
     return (
@@ -133,9 +93,9 @@ export default function FirebaseDemo() {
             </form>
             <div>
                 <Grid container spacing={2}>
-                    {productList.length ?
-                        (productList.map(i => (
-                            <Grid item xs={3} key={i.id}>
+                    {listOfProducts.length ?
+                        (listOfProducts.map(i => (
+                            <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={i.id}>
                                 <Card>
                                     <IconButton
                                         onClick={() => setProductDelete(i.id)}
@@ -153,7 +113,8 @@ export default function FirebaseDemo() {
                                     </CardHeader>
                                     <CardMedia
                                         style={{
-                                            height: 200
+                                            height: 200,
+                                            width: 300
                                         }}
                                         image={i.imgUrl} />
                                 </Card>
