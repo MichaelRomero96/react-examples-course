@@ -42,7 +42,7 @@ export default function FirebaseDemoRedux() {
     //registrar la data
     const handleSubmit = e => {
         e.preventDefault();
-        console.log("Registring a product");
+        console.log("Registering a product");
         setProductRegistry(true);
         dispatch(add_products_action(products));
         setProducts(productForm);

@@ -81,7 +81,7 @@ export default function FirebaseDemo() {
     //registrar la data
     const handleSubmit = e => {
         e.preventDefault();
-        console.log("Registring a product");
+        console.log("Registering a product");
         addProductsDB();
         setProductRegistry(true);
     }
